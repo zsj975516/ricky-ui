@@ -1,11 +1,22 @@
 {
   "name": "ricky-ui",
-  "version": "1.0.7",
+  "version": "1.0.13",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "node script/prePublish.js"
   },
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "css-element-queries": "^1.1.1"
+  },
+  "repository": {
+    "url": "https://github.com/zsj975516/ricky-ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zsj975516/ricky-ui/issues"
+  },
+  "homepage": "https://github.com/zsj975516/ricky-ui"
 }

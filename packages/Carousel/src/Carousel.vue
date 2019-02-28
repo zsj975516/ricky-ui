@@ -28,6 +28,8 @@
 <script>
   import Animate from '../../../util/animate'
 
+  const ResizeSensor = require('css-element-queries/src/ResizeSensor')
+
   function getRandomId (num = 10) {
     const arr = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
     let id = ''
@@ -58,9 +60,30 @@
     },
     mounted () {
       this.$nextTick(() => {
+        new ResizeSensor(this.carousel, () => {
+          this.init()
+        })
         this.count = this.$slots.default.length
         this.option.width = this.width
         this.option.height = this.height
+        this.init()
+        this.startInterval()
+        window.addEventListener('visibilitychange', evt => {
+          switch (document.visibilityState) {
+            case 'prerender':
+              break
+            case 'hidden':
+              this.stopInterval()
+              break
+            case 'visible':
+              this.startInterval()
+              break
+          }
+        })
+      })
+    },
+    methods: {
+      init () {
         if (!this.option.width) this.option.width = this.carousel.offsetWidth
         if (!this.option.height) this.option.height = this.carousel.offsetHeight
         if (this.isHorizontal) {
@@ -87,22 +110,7 @@
             item.style.height = this.option.height + 'px'
           })
         })
-        this.startInterval()
-        window.addEventListener('visibilitychange', evt => {
-          switch (document.visibilityState) {
-            case 'prerender':
-              break
-            case 'hidden':
-              this.stopInterval()
-              break
-            case 'visible':
-              this.startInterval()
-              break
-          }
-        })
-      })
-    },
-    methods: {
+      },
       stopInterval () {
         if (this.intervalId) {
           clearInterval(this.intervalId)
@@ -130,6 +138,7 @@
         }
       },
       prev (ev, time) {
+        let oldIndex = this.active
         this.active--
         if (this.active < 0) this.active = this.count - 1
         let index = this.active
@@ -150,6 +159,7 @@
           to: {left: lt, top: tt},
           time: time || this.animateTime,
           index: index,
+          oldIndex: oldIndex,
           onUpdate: res => {
             this.carousel.style.left = res.left + 'px'
             this.carousel.style.top = res.top + 'px'
@@ -157,6 +167,7 @@
         })
       },
       next (ev, time) {
+        let oldIndex = this.active
         this.active++
         let index = this.active
         if (this.active > this.count - 1) this.active = 0
@@ -179,15 +190,16 @@
           to: {left: lt, top: tt},
           time: time || this.animateTime,
           index: index,
+          oldIndex: oldIndex,
           onUpdate: res => {
             this.carousel.style.left = res.left + 'px'
             this.carousel.style.top = res.top + 'px'
           }
         })
       },
-      animation ({from, to, time, onUpdate, index} = {}) {
+      animation ({from, to, time, onUpdate, index, oldIndex} = {}) {
         if (!from) return
-        if (this.animateId) return this.animateQueue.push({from, to, time, onUpdate, index})
+        if (this.animateId) return this.animateQueue.push({from, to, time, onUpdate, index, oldIndex})
         this.animateId = true
 
         let animate = new Animate(from)
@@ -195,6 +207,7 @@
         animate.onUpdate(onUpdate)
         animate.onComplete(() => {
           this.animateId = false
+          this.$emit('change', index, oldIndex)
           this.animation(this.animateQueue.shift())
         })
         animate.start()
