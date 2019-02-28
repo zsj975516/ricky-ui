@@ -242,89 +242,89 @@
   }
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 
   .carousel {
     height: 100%;
     width: 100%;
     position: relative;
+  }
 
-    .carousel-view {
-      height: 100%;
-      width: 100%;
-      position: relative;
-      overflow: hidden;
+  .carousel .carousel-view {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
 
-      .carousel-panel {
-        height: 100%;
-        width: 100%;
-        font-size: 0;
-        position: absolute;
-        top: 0;
-        left: 0;
+  .carousel-view .carousel-panel {
+    height: 100%;
+    width: 100%;
+    font-size: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
 
-        & > div {
-          display: inline-block;
-          height: 100%;
-          width: 100%;
-          overflow: hidden;
+  .carousel-view .carousel-panel > div {
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+  }
 
-          & > * {
-            display: inline-block;
-          }
+  .carousel-view .carousel-panel > div > * {
+    display: inline-block;
+  }
 
-          &.carousel-curr > * {
-            display: inline-block;
-          }
-        }
-      }
-    }
+  .carousel-view .carousel-panel > div.carousel-curr > * {
+    display: inline-block;
+  }
 
-    .carousel-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      border: none;
-      outline: none;
+  .carousel .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+    outline: none;
+  }
 
-      &:hover {
-        background-color: aquamarine;
-      }
+  .carousel .carousel-btn:hover {
+    background-color: aquamarine;
+  }
 
-      &.prev {
-        left: 20px;
-      }
+  .carousel .carousel-btn.prev {
+    left: 20px;
+  }
 
-      &.next {
-        right: 20px;
-      }
-    }
+  .carousel .carousel-btn.next {
+    right: 20px;
+  }
 
-    .default-indicator {
-      position: absolute;
-      text-align: center;
-      width: 100%;
-      bottom: 5px;
+  .carousel .default-indicator {
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    bottom: 5px;
+  }
 
-      .indicator-item {
-        display: inline-block;
-        width: 30px;
-        height: 10px;
-        background-color: #cccccc;
-        margin-left: 10px;
+  .carousel .default-indicator .indicator-item {
+    display: inline-block;
+    width: 30px;
+    height: 10px;
+    background-color: #cccccc;
+    margin-left: 10px;
+  }
 
-        &:nth-child(1) {
-          margin-left: 0;
-        }
+  .carousel .default-indicator .indicator-item:nth-child(1) {
+    margin-left: 0;
+  }
 
-        &.active {
-          background-color: aqua;
-        }
-      }
-    }
+  .carousel .default-indicator .indicator-item.active {
+    background-color: aqua;
   }
 
 </style>
