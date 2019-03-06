@@ -103,7 +103,10 @@
     height: 15px;
     width: 15px;
     margin-right: 5px;
-    /*visibility: hidden;*/
+    visibility: hidden;
+  }
+  .rootNode div img.box_show {
+    visibility: visible;
   }
 
   .rootNode div:hover {
