@@ -44,16 +44,16 @@
           // 参数必须包含，label，和click，且click必须是方法
           return value.hasOwnProperty('label') && value.hasOwnProperty('click') && (typeof value.click === 'function')
         })
-        if (!res) throw new Error('请检查参数是否正确')
-        let x = ev.screenX - window.screenX + 5
-        let y = ev.screenY - window.screenY - (window.outerHeight - window.innerHeight)
+        if (!res) throw new Error('请检查参数[label,click]是否正确')
+        let x = ev.pageX + 5
+        let y = ev.pageY
         let el = this.$refs.rootNode
         this.isShow = true
         this.contextmenu = contextmenu
         this.$nextTick(() => {
           // 菜单超出了窗体
-          if (y > window.outerHeight - el.offsetHeight - 15) y = y - el.offsetHeight
-          if (x > window.outerWidth - el.offsetWidth - 15) x = window.outerWidth - el.offsetWidth - 15
+          if (y > window.innerHeight - el.offsetHeight) y = y - el.offsetHeight
+          if (x > window.innerWidth - el.offsetWidth) x = window.outerWidth - el.offsetWidth
           el.style.top = y + 'px'
           el.style.left = x + 'px'
         })
@@ -105,6 +105,7 @@
     margin-right: 5px;
     visibility: hidden;
   }
+
   .rootNode div img.box_show {
     visibility: visible;
   }
