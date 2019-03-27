@@ -4,3 +4,4 @@ node_modules
 script
 .editorconfig
 doc
+package-lock.json
