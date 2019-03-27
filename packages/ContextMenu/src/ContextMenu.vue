@@ -2,9 +2,9 @@
   <div class="rootNode"
        ref="rootNode"
        :class="{hide:!isShow}"
-       @pointerdown.stop.prevent="{}">
+       @pointerdown.stop.prevent>
     <div @click="handleClick(item,$event)"
-         @pointerdown.stop.prevent="{}"
+         @pointerdown.stop.prevent
          v-show="item.show"
          :key="index"
          v-for="(item,index) in contextmenu">
@@ -40,10 +40,8 @@
       show (contextmenu = []) {
         let ev = window.event
         // 验证参数
-        let res = contextmenu.every((value, index) => {
-          // 参数必须包含，label，和click，且click必须是方法
-          return value.hasOwnProperty('label') && value.hasOwnProperty('click') && (typeof value.click === 'function')
-        })
+        // 参数必须包含，label，和click，且click必须是方法
+        let res = contextmenu.every((value, index) => value.hasOwnProperty('label') && value.hasOwnProperty('click') && (typeof value.click === 'function'))
         if (!res) throw new Error('请检查参数[label,click]是否正确')
         let x = ev.pageX + 5
         let y = ev.pageY

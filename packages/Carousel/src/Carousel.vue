@@ -30,21 +30,13 @@
 
   const ResizeSensor = require('css-element-queries/src/ResizeSensor')
 
-  function getRandomId (num = 10) {
-    const arr = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-    let id = ''
-    for (let i = 0; i < num; i++) {
-      let index = Math.floor(Math.random() * arr.length)
-      id += arr[index]
-    }
-    return id
-  }
+  const guid = require('guid')
 
   export default {
-    name: 'carousel',
+    name: 'RCarousel',
     data () {
       return {
-        ref: getRandomId(),
+        ref: guid.raw(),
         count: 0,
         active: 0,
         option: {width: 0, height: 0},
